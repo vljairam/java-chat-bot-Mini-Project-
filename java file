@@ -1,0 +1,50 @@
+import java.util.Scanner;
+public class ChatBot {
+    private static final String[] GREETINGS = {"hi", "hello", "hey", "greetings", "good morning"};
+    private static final String[] GOODBYES = {"bye", "goodbye", "see you", "later"};
+    private static final String[] CANNOTS = {"sorry", "I don't understand", "could you rephrase that?"};
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
+        System.out.println("Hello! I am your chatbot. Type 'bye' to exit.");
+        while (true) {
+            System.out.print("You: ");
+            userInput = scanner.nextLine().toLowerCase();
+            if (isGoodbye(userInput)) {
+                System.out.println("Chatbot: Goodbye! See you next time.");
+                break;
+            }
+            if (isGreeting(userInput)) {
+                System.out.println("Chatbot: Hi there! How can I help you today?");
+            } else {
+                System.out.println("Chatbot: " + getResponse(userInput));
+            }
+        }
+    }
+    private static boolean isGreeting(String input) {
+        for (String greeting : GREETINGS) {
+            if (input.contains(greeting)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private static boolean isGoodbye(String input) {
+        for (String goodbye : GOODBYES) {
+            if (input.contains(goodbye)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private static String getResponse(String input) {
+      if (input.contains("how are you")) {
+            return "I'm doing well, thank you for asking!";
+        } else if (input.contains("your name")) {
+            return "I am a chatbot. I don't have a name, but you can call me Chatbot!";
+        } else if (input.contains("help")) {
+            return "I can help you with simple tasks like telling the time or answering basic questions!";
+        }
+        return CANNOTS[(int) (Math.random() * CANNOTS.length)];
+    }
+}
